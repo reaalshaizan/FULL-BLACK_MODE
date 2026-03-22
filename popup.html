@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Full Black Mode</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 300px;
+      background: #000;
+      color: #fff;
+      font-family: 'Space Mono', monospace;
+      padding: 24px 20px 20px;
+      overflow: hidden;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .moon-icon {
+      font-size: 22px;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    h1 {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .subtitle {
+      font-size: 9px;
+      color: #444;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    /* Toggle */
+    .toggle-section {
+      background: #0d0d0d;
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .toggle-section:hover {
+      border-color: #444;
+    }
+
+    .toggle-label {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #aaa;
+    }
+
+    .toggle-status {
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: #555;
+      margin-top: 3px;
+    }
+
+    .toggle-status.on {
+      color: #4ade80;
+    }
+
+    /* Switch */
+    .switch {
+      position: relative;
+      width: 48px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .switch input { display: none; }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 26px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .slider::before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      top: 3px;
+      background: #444;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+
+    input:checked + .slider {
+      background: #111;
+      border-color: #4ade80;
+    }
+
+    input:checked + .slider::before {
+      transform: translateX(22px);
+      background: #4ade80;
+      box-shadow: 0 0 8px #4ade8088;
+    }
+
+    /* Info box */
+    .info {
+      background: #080808;
+      border: 1px solid #1a1a1a;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 10px;
+      color: #444;
+      line-height: 1.7;
+      letter-spacing: 0.3px;
+      margin-bottom: 14px;
+    }
+
+    .info span {
+      color: #666;
+    }
+
+    /* Current site */
+    .site-badge {
+      background: #070707;
+      border: 1px solid #1c1c1c;
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .site-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      flex-shrink: 0;
+      box-shadow: 0 0 6px #4ade80;
+    }
+
+    .site-dot.off {
+      background: #333;
+      box-shadow: none;
+    }
+
+    .site-name {
+      font-size: 10px;
+      color: #555;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 9px;
+      color: #333;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-top: 1px solid #111;
+      padding-top: 12px;
+    }
+    .author {
+      color: #4ade80;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="moon-icon">🌑</div>
+    <div>
+      <h1>Full Black Mode</h1>
+      <div class="subtitle">Total darkness for all websites</div>
+    </div>
+  </div>
+
+  <div class="toggle-section" id="toggleSection">
+    <div>
+      <div class="toggle-label">Dark Mode</div>
+      <div class="toggle-status" id="statusText">ACTIVE</div>
+    </div>
+    <label class="switch">
+      <input type="checkbox" id="darkToggle" checked />
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="site-badge">
+    <div class="site-dot" id="siteDot"></div>
+    <div class="site-name" id="siteName">Loading...</div>
+  </div>
+
+  <div class="info">
+    <span>Full Black Mode</span> injects deep dark CSS into every website — turning backgrounds black, text light, and inputs dark. Works on most sites including SPAs.
+  </div>
+
+  <div class="footer">Made by <span class="author">Shaizan Siddiqui</span> &nbsp;·&nbsp; v2.0</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
